@@ -19,9 +19,16 @@ function M.run_cpp()
 	end
 
 	vim.cmd("w")
-	vim.cmd("split | terminal")
-	local term_cmd = string.format("%s && %s\n", compile_cmd, run_cmd)
-	vim.api.nvim_chan_send(vim.b.terminal_job_id, term_cmd)
+
+  local Terminal = require("toggleterm.terminal").Terminal
+  if not M._cpp_term then
+    M._cpp_term = Terminal:new({ direction = "horizontal", close_on_exit = false })
+  end
+
+  M._cpp_term:open()
+
+  local term_cmd = string.format("%s && %s\n", compile_cmd, run_cmd)
+  M._cpp_term:send(term_cmd)
 end
 
 function M.setup()
