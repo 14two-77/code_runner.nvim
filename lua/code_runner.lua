@@ -10,7 +10,7 @@ function M.run_cpp()
 
     if os_name:match("Windows") then
         output = file_no_ext .. ".exe"
-        compile_cmd = string.format('g++ "%s" -o "%s"', file, output)
+      compile_cmd = string.format('g++ "%s" -o "%s"', file, output)
         run_cmd = string.format('"%s"', output)
     else
         output = file_no_ext .. ".out"
@@ -21,10 +21,13 @@ function M.run_cpp()
     vim.cmd("w")
 
     local Terminal = require("toggleterm.terminal").Terminal
-    M._cpp_term = Terminal:new({
-        direction = "horizontal",
-        close_on_exit = false
-    })
+    if not M._cpp_term then
+        M._cpp_term = Terminal:new({
+            direction = "horizontal",
+            close_on_exit = false
+        })
+        M._cpp_term:send('export PATH="/mingw64/bin:$PATH"')
+    end
 
     M._cpp_term:open()
 
