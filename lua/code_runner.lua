@@ -30,9 +30,8 @@ function M.run_cpp()
 
     M._cpp_term:open()
 
-    -- M._cpp_term:send('echo "Hello"')
-    -- local term_cmd = string.format("%s && %s\n", compile_cmd, run_cmd)
-    -- M._cpp_term:send(term_cmd)
+    local term_cmd = string.format("%s && %s\n", compile_cmd, run_cmd)
+    M._cpp_term:send(term_cmd)
 end
 
 function M.setup()
