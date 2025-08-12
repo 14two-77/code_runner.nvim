@@ -31,7 +31,7 @@ function M.run_cpp()
     M._cpp_term:open()
 
     local term_cmd = string.format("%s && %s\n", compile_cmd, run_cmd)
-    -- M._cpp_term:send('export PATH="/mingw64/bin:$PATH"')
+    M._cpp_term:send('export PATH="/mingw64/bin:$PATH"')
     M._cpp_term:send(term_cmd)
 end
 
