@@ -11,11 +11,11 @@ function M.run_cpp()
 	if os_name:match("Windows") then
 		output = file_no_ext .. ".exe"
 		compile_cmd = string.format('g++ \"%s\" -o \"%s\"', file, output)
-		run_cmd = string.format('"%s"', output)
+		run_cmd = string.format('"./%s"', output)
 	else
 		output = file_no_ext .. ".out"
 		compile_cmd = string.format('g++ \"%s\" -o \"%s\"', file, output)
-		run_cmd = string.format('"%s"', output)
+		run_cmd = string.format('"./%s"', output)
 	end
 
 	vim.cmd("w")
