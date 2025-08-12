@@ -10,7 +10,7 @@ function M.run_cpp()
 
     if os_name:match("Windows") then
         output = file_no_ext .. ".exe"
-      compile_cmd = string.format('g++ "%s" -o "%s"', file, output)
+        compile_cmd = string.format('g++ "%s" -o "%s"', file, output)
         run_cmd = string.format('"%s"', output)
     else
         output = file_no_ext .. ".out"
@@ -26,12 +26,12 @@ function M.run_cpp()
             direction = "horizontal",
             close_on_exit = false
         })
-        M._cpp_term:send('export PATH="/mingw64/bin:$PATH"')
     end
 
     M._cpp_term:open()
 
     local term_cmd = string.format("%s && %s\n", compile_cmd, run_cmd)
+    M._cpp_term:send('export PATH="/mingw64/bin:$PATH"')
     M._cpp_term:send(term_cmd)
 end
 
