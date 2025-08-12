@@ -1,20 +1,20 @@
 local M = {}
 
 function M.run_cpp()
-    local file = vim.fn.shellescape(vim.fn.expand("%:p"))
-    local file_no_ext = vim.fn.shellescape(vim.fn.expand("%:p:r"))
+    local file = vim.fn.expand("%:p")
+    local file_no_ext = vim.fn.expand("%:p:r")
     local output
     local compile_cmd
     local run_cmd
     local os_name = vim.loop.os_uname().sysname
 
     if os_name:match("Windows") then
-        output = vim.fn.shellescape(file_no_ext .. ".exe")
-        compile_cmd = string.format('g++ \"%s\" -o \"%s\"', file, output)
+        output = file_no_ext .. ".exe"
+        compile_cmd = string.format('g++ %s -o %s', file, output)
         run_cmd = string.format("./%s", output)
     else
-        output = vim.fn.shellescape(file_no_ext .. ".out")
-        compile_cmd = string.format('g++ \"%s\" -o \"%s\"', file, output)
+        output = file_no_ext .. ".out"
+        compile_cmd = string.format('g++ %s -o %s', file, output)
         run_cmd = string.format("./%s", output)
     end
 
