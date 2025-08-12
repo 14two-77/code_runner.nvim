@@ -22,16 +22,21 @@ function M.run_cpp()
 
     local Terminal = require("toggleterm.terminal").Terminal
     if not M._cpp_term then
+        -- Create terminal with mingw64/bin in PATH permanently
+        local mingw_path = "C:/msys64/mingw64/bin"
         M._cpp_term = Terminal:new({
             direction = "horizontal",
-            close_on_exit = false
+            close_on_exit = false,
+            env = { PATH = mingw_path .. ";" .. vim.env.PATH }
         })
     end
 
-    M._cpp_term:open()
+    -- Open terminal only if not already open
+    if not M._cpp_term:is_open() then
+        M._cpp_term:open()
+    end
 
     local term_cmd = string.format("%s && %s\n", compile_cmd, run_cmd)
-    M._cpp_term:send('export PATH="/mingw64/bin:$PATH"')
     M._cpp_term:send(term_cmd)
 end
 
